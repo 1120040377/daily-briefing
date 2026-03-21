@@ -6,7 +6,7 @@ export default defineConfig({
   lang: 'zh-CN',
 
   // GitHub Pages 部署时如果仓库名不是用户名，需要设置 base
-  // base: '/daily-briefing/',
+  base: '/daily-briefing/',
 
   head: [
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0' }],
