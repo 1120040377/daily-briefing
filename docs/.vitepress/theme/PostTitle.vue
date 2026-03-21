@@ -10,7 +10,7 @@ const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六']
 
 function formatDate(dateStr) {
   if (!dateStr) return ''
-  const [year, month, day] = String(dateStr).split('-').map(Number)
+  const [year, month, day] = String(dateStr).slice(0, 10).split('-').map(Number)
   if (!year || !month || !day) return String(dateStr)
   const weekday = WEEKDAYS[new Date(year, month - 1, day).getDay()]
   return `${year}年${month}月${day}日 星期${weekday}`
