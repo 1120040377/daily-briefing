@@ -1,6 +1,7 @@
 {
   "name": "daily-briefing",
   "version": "1.0.0",
+  "type": "module",
   "description": "Daily news briefing site powered by VitePress",
   "scripts": {
     "dev": "vitepress dev docs",
