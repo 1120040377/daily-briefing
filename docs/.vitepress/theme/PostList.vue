@@ -1,4 +1,5 @@
 <script setup>
+import { withBase } from 'vitepress'
 import { data as posts } from '../posts.data.js'
 
 function formatDate(dateStr) {
@@ -29,7 +30,7 @@ function getDaysSince(dateStr) {
     <a
       v-for="post in posts"
       :key="post.url"
-      :href="post.url"
+      :href="withBase(post.url)"
       class="post-card"
     >
       <div class="post-meta">
