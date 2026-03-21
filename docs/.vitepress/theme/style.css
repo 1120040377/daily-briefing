@@ -1,0 +1,66 @@
+/* 全局样式调整，适合日报阅读 */
+
+:root {
+  --vp-font-family-base: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+}
+
+/* 日报内容页样式 */
+.vp-doc .briefing-section {
+  margin: 28px 0;
+  padding: 20px 24px;
+  border-left: 3px solid var(--vp-c-brand-1);
+  background: var(--vp-c-bg-soft);
+  border-radius: 0 8px 8px 0;
+}
+
+.vp-doc .briefing-section h2 {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+/* 首页 hero 区域精简 */
+.VPHero .tagline {
+  font-size: 16px !important;
+}
+
+/* 归档页 */
+.archive-year {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--vp-c-brand-1);
+  margin: 32px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.archive-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.archive-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--vp-c-divider);
+}
+
+.archive-list .date {
+  font-size: 13px;
+  color: var(--vp-c-text-3);
+  white-space: nowrap;
+  min-width: 90px;
+}
+
+.archive-list a {
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.archive-list a:hover {
+  color: var(--vp-c-brand-1);
+}

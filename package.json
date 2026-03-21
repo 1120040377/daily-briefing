@@ -1,0 +1,13 @@
+{
+  "name": "daily-briefing",
+  "version": "1.0.0",
+  "description": "Daily news briefing site powered by VitePress",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
+}

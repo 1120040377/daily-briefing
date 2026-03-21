@@ -1,0 +1,8 @@
+node_modules/
+.claude
+.claude/*
+dist/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+.DS_Store
+*.log
