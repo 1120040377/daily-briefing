@@ -2,18 +2,19 @@
 import { withBase } from 'vitepress'
 import { data as posts } from '../posts.data.js'
 
+const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六']
+
 function formatDate(dateStr) {
-  const date = new Date(dateStr + 'T00:00:00')
-  return date.toLocaleDateString('zh-CN', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    weekday: 'short',
-  })
+  const [year, month, day] = String(dateStr).split('-').map(Number)
+  if (!year || !month || !day) return String(dateStr)
+  const weekday = WEEKDAYS[new Date(year, month - 1, day).getDay()]
+  return `${year}年${month}月${day}日 周${weekday}`
 }
 
 function getDaysSince(dateStr) {
-  const diff = Date.now() - new Date(dateStr + 'T00:00:00').getTime()
+  const [year, month, day] = String(dateStr).split('-').map(Number)
+  if (!year || !month || !day) return ''
+  const diff = Date.now() - new Date(year, month - 1, day).getTime()
   const days = Math.floor(diff / 86400000)
   if (days === 0) return '今天'
   if (days === 1) return '昨天'
