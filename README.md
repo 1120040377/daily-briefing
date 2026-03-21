@@ -1,6 +1,6 @@
 # Daily Briefing · 每日日报
 
-基于 [VitePress](https://vitepress.dev/) 构建的每日新闻日报网站，包含 AI 资讯、前端资讯和天气预报，通过 GitHub Actions 自动部署到 GitHub Pages。
+基于 [VitePress](https://vitepress.dev/) 构建的每日新闻日报网站，包含 AI 资讯、前端资讯和天气预报，通过 GitHub Actions 自动部署到 GitHub Pages。1
 
 ## 项目结构
 
