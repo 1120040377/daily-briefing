@@ -6,15 +6,14 @@ const { frontmatter, page } = useData()
 
 const isPost = computed(() => page.value.relativePath.startsWith('posts/'))
 
+const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六']
+
 function formatDate(dateStr) {
   if (!dateStr) return ''
-  const date = new Date(dateStr + 'T00:00:00')
-  return date.toLocaleDateString('zh-CN', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long',
-  })
+  const [year, month, day] = String(dateStr).split('-').map(Number)
+  if (!year || !month || !day) return String(dateStr)
+  const weekday = WEEKDAYS[new Date(year, month - 1, day).getDay()]
+  return `${year}年${month}月${day}日 星期${weekday}`
 }
 </script>
 
