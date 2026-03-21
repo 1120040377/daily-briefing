@@ -1,66 +1,226 @@
-/* 全局样式调整，适合日报阅读 */
-
+/* ============================================
+   全局基础 - 中文字体与 CSS 变量
+   ============================================ */
 :root {
-  --vp-font-family-base: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+  --vp-font-family-base: -apple-system, 'PingFang SC', 'Microsoft YaHei UI',
+    'Microsoft YaHei', 'Noto Sans SC', 'Hiragino Sans GB', 'Helvetica Neue',
+    sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', 'Fira Code', Consolas,
+    'Courier New', monospace;
 }
 
-/* 日报内容页样式 */
-.vp-doc .briefing-section {
-  margin: 28px 0;
-  padding: 20px 24px;
-  border-left: 3px solid var(--vp-c-brand-1);
-  background: var(--vp-c-bg-soft);
+/* ============================================
+   日报内容页 - 整体排版
+   ============================================ */
+
+/* 基础行高提升可读性 */
+.vp-doc p {
+  line-height: 1.8;
+  margin: 10px 0;
+}
+
+/* ============================================
+   日报内容页 - H2 分区标题
+   ============================================ */
+.vp-doc h2 {
+  margin: 40px 0 18px !important;
+  padding: 10px 16px !important;
+  padding-top: 10px !important;
+  border-top: none !important;
+  border-left: 4px solid var(--vp-c-brand-1);
   border-radius: 0 8px 8px 0;
+  background: var(--vp-c-brand-soft);
+  font-size: 17px !important;
+  font-weight: 700;
+  color: var(--vp-c-brand-1);
+  letter-spacing: 0.02em;
 }
 
-.vp-doc .briefing-section h2 {
-  margin-top: 0;
-  padding-top: 0;
-  border-top: none;
+/* ============================================
+   日报内容页 - 新闻条目
+   ============================================ */
+
+/* 每条新闻是一个 p 标签，首个 strong 是标题 */
+.vp-doc p > strong:first-child {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  margin-bottom: 4px;
 }
 
-/* 首页 hero 区域精简 */
+/* 来源链接段落（包含 🔗 + 链接） */
+.vp-doc p:has(> a:only-child) {
+  margin-top: 6px;
+  margin-bottom: 18px;
+}
+
+.vp-doc p:has(> a:only-child) a,
+.vp-doc p > a:only-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--vp-c-text-3);
+  text-decoration: none;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 4px;
+  padding: 2px 8px;
+  background: var(--vp-c-bg-soft);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.vp-doc p:has(> a:only-child) a:hover,
+.vp-doc p > a:only-child:hover {
+  color: var(--vp-c-brand-1);
+  border-color: var(--vp-c-brand-2);
+}
+
+/* ============================================
+   日报内容页 - 天气表格
+   ============================================ */
+.vp-doc table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0 24px;
+  font-size: 14px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
+  border: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc thead tr {
+  background: var(--vp-c-brand-soft) !important;
+}
+
+.vp-doc th {
+  padding: 10px 18px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--vp-c-brand-1);
+  border-bottom: 1px solid var(--vp-c-divider);
+  white-space: nowrap;
+}
+
+.vp-doc td {
+  padding: 10px 18px;
+  border-top: 1px solid var(--vp-c-divider);
+  color: var(--vp-c-text-1);
+}
+
+.vp-doc tr:last-child td {
+  border-bottom: none;
+}
+
+.vp-doc tbody tr:hover td {
+  background: var(--vp-c-bg-soft);
+}
+
+/* ============================================
+   日报内容页 - 天气建议段落
+   ============================================ */
+.vp-doc p:has(> strong:first-child):not(:has(> a)) {
+  padding: 12px 16px;
+  background: var(--vp-c-bg-soft);
+  border-radius: 8px;
+  margin: 8px 0;
+  border-left: 3px solid var(--vp-c-brand-soft);
+}
+
+/* ============================================
+   首页 Hero 区域
+   ============================================ */
 .VPHero .tagline {
-  font-size: 16px !important;
+  font-size: 15px !important;
+  opacity: 0.75;
 }
 
-/* 归档页 */
+.VPHero .actions {
+  margin-top: 20px !important;
+}
+
+/* ============================================
+   归档页
+   ============================================ */
 .archive-year {
   font-size: 20px;
   font-weight: 700;
   color: var(--vp-c-brand-1);
-  margin: 32px 0 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--vp-c-divider);
+  margin: 40px 0 4px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--vp-c-brand-soft);
+}
+
+.archive-month {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--vp-c-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 20px 0 6px 2px;
 }
 
 .archive-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 4px;
 }
 
 .archive-list li {
   display: flex;
-  align-items: baseline;
-  gap: 16px;
-  padding: 6px 0;
-  border-bottom: 1px dashed var(--vp-c-divider);
+  align-items: center;
+  gap: 14px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.archive-list li:hover {
+  background: var(--vp-c-bg-soft);
 }
 
 .archive-list .date {
   font-size: 13px;
   color: var(--vp-c-text-3);
   white-space: nowrap;
-  min-width: 90px;
+  font-variant-numeric: tabular-nums;
+  min-width: 44px;
 }
 
 .archive-list a {
   color: var(--vp-c-text-1);
   text-decoration: none;
   font-size: 15px;
+  flex: 1;
+  transition: color 0.15s;
 }
 
 .archive-list a:hover {
   color: var(--vp-c-brand-1);
+}
+
+/* ============================================
+   移动端适配
+   ============================================ */
+@media (max-width: 640px) {
+  .vp-doc h2 {
+    font-size: 15px !important;
+    padding: 8px 12px !important;
+    margin: 28px 0 14px !important;
+  }
+
+  .vp-doc table {
+    font-size: 13px;
+  }
+
+  .vp-doc th,
+  .vp-doc td {
+    padding: 8px 12px;
+  }
+
+  .archive-year {
+    font-size: 18px;
+  }
 }
