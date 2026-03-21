@@ -4,6 +4,7 @@ title: 归档
 
 <script setup>
 import { data as posts } from './.vitepress/posts.data.js'
+import { withBase } from 'vitepress'
 
 const byYear = posts.reduce((acc, post) => {
   const year = new Date(post.date).getFullYear()
@@ -27,7 +28,7 @@ function formatShortDate(dateStr) {
   <ul class="archive-list">
     <li v-for="post in byYear[year]" :key="post.url">
       <span class="date">{{ formatShortDate(post.date) }}</span>
-      <a :href="post.url">{{ post.title }}</a>
+      <a :href="withBase(post.url)">{{ post.title }}</a>
     </li>
   </ul>
 </template>
