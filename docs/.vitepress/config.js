@@ -22,7 +22,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com' },
+      { icon: 'github', link: 'https://github.com/1120040377/daily-briefing' },
     ],
 
     footer: {
