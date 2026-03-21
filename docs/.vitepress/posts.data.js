@@ -7,7 +7,9 @@ export default createContentLoader('posts/*.md', {
       .map(({ url, frontmatter, excerpt }) => ({
         title: frontmatter.title || url.replace('/posts/', '').replace('.html', ''),
         url,
-        date: frontmatter.date,
+        date: frontmatter.date instanceof Date
+          ? frontmatter.date.toISOString().split('T')[0]
+          : String(frontmatter.date || ''),
         summary: frontmatter.summary || '',
         weather: frontmatter.weather || '',
         excerpt,
