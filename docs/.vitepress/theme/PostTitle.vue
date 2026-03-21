@@ -25,7 +25,7 @@ function formatDate(dateStr) {
         📅 {{ formatDate(frontmatter.date) }}
       </span>
       <span v-if="frontmatter.weather" class="post-header-weather">
-        {{ frontmatter.weather }}
+        明日 {{ frontmatter.weather }}
       </span>
     </div>
   </div>

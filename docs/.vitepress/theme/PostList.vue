@@ -39,7 +39,7 @@ function getDaysSince(dateStr) {
           <span class="post-date">{{ formatDate(post.date) }}</span>
           <span class="post-ago">{{ getDaysSince(post.date) }}</span>
         </div>
-        <span v-if="post.weather" class="post-weather">{{ post.weather }}</span>
+        <span v-if="post.weather" class="post-weather">明日 {{ post.weather }}</span>
       </div>
       <h2 class="post-title">{{ post.title }}</h2>
       <p v-if="post.summary" class="post-summary">{{ post.summary }}</p>
