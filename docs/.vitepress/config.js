@@ -13,7 +13,7 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    logo: '📰',
+    logo: '/logo.svg',
     siteTitle: '每日日报',
 
     nav: [
