@@ -1,5 +1,7 @@
+import { readFile } from 'node:fs/promises'
+import { resolve } from 'node:path'
 import { defineConfig } from 'vitepress'
-import { readingMarkdown } from './stories.js'
+import { extractReadingSources, readingMarkdown } from './stories.js'
 
 export default defineConfig({
   title: '每日日报',
@@ -9,8 +11,12 @@ export default defineConfig({
   // GitHub Pages 部署时如果仓库名不是用户名，需要设置 base
   base: '/daily-briefing/',
 
-  transformPageData(page) {
-    if (page.relativePath.startsWith('posts/')) page.frontmatter.layout = 'reading'
+  async transformPageData(page, { siteConfig }) {
+    if (page.relativePath.startsWith('posts/')) {
+      page.frontmatter.layout = 'reading'
+      const file = await readFile(resolve(siteConfig.srcDir, page.filePath), 'utf8')
+      page.frontmatter.readingSources = extractReadingSources(file)
+    }
     if (page.frontmatter.layout === 'story' && page.params?.title) page.title = page.params.title
   },
 
@@ -48,8 +54,12 @@ export default defineConfig({
       })
       md.core.ruler.after('anchor', 'reading-headings', state => {
         if (!state.env.relativePath?.startsWith('posts/')) return
-        for (const token of state.tokens) {
+        for (const [index, token] of state.tokens.entries()) {
           if (!token.children) continue
+          const previous = state.tokens[index - 1]
+          if (previous?.type === 'paragraph_open' && token.content.startsWith('**判断**：')) {
+            previous.attrJoin('class', 'portal-judgment')
+          }
           const start = token.children.findIndex(child => child.attrGet('class') === 'header-anchor')
           if (start < 0) continue
           const end = token.children.findIndex((child, index) => index > start && child.type === 'link_close')

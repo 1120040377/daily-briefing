@@ -1,5 +1,6 @@
 const sourceLine = /^(?:\s*(?:🔗|(?:来源|原文)[：:])|.*?\s·\s+\[[^\]]+\]\(https?:\/\/)/
 const sourceLink = /\[([^\]]+)\]\((https?:\/\/(?:[^\s()]|\([^()]*\))+)\)/g
+const judgmentLabel = /\*\*判断\*\*[：:]?/
 const channels = [
   ['models', '模型'],
   ['agents', 'Agent'],
@@ -20,20 +21,28 @@ function inferChannel(title, sources) {
   return 'industry'
 }
 
+function stripUpdateLabel(title) {
+  return title.replace(/^本次新增\s*·\s*/, '').trim()
+}
+
+function linksFromCredit(credit) {
+  return [...credit.matchAll(sourceLink)].map(([, label, href]) => ({ label, href }))
+}
+
 export function extractStories(source, date) {
   const uncommented = source.replace(/<!--(?!\s*news:)[\s\S]*?-->/g, '')
   const headings = /^###\s+/m.test(uncommented) ? /^###\s+/m : /^##\s+(?!今日最值得知道)/m
   const sections = uncommented.split(headings).slice(1)
   return sections.flatMap((section, index) => {
     const [heading, ...body] = section.split(/\r?\n/)
-    const title = heading.replace(/^本次新增\s*·\s*/, '').trim()
+    const title = stripUpdateLabel(heading)
     const credit = body.find(line => sourceLine.test(line))
     const editorial = body.join('\n').match(/<!--\s*news:\s*([a-z]+)\s*-->/)
     const [description, judgment] = body
       .filter(line => !sourceLine.test(line) && !/^\s*(?:##\s|<!--|---\s*$)/.test(line))
-      .join('\n').split(/\*\*判断\*\*[：:]?/)
+      .join('\n').split(judgmentLabel)
       .map(text => text.replace(/\*\*([^*]+)\*\*/g, '$1').trim())
-    const links = [...(credit || '').matchAll(sourceLink)].map(([, label, href]) => ({ label, href }))
+    const links = linksFromCredit(credit || '')
     if (!title || !description || !judgment || !links.length) return []
     const explicit = editorial?.[1]
     const channel = channels.some(([id]) => id === explicit) ? explicit : inferChannel(title, credit)
@@ -43,8 +52,30 @@ export function extractStories(source, date) {
   })
 }
 
+export function extractReadingSources(source) {
+  const groups = []
+  let group = { title: '', links: [] }
+
+  for (const line of source.split(/\r?\n/)) {
+    const heading = line.match(/^#{2,3}[ \t]+(.+)/) || line.match(/^\*\*(?:\d+[.、]\s*)(.+?)\*\*\s*$/)
+    if (heading) {
+      group = { title: stripUpdateLabel(heading[1]), links: [] }
+    }
+    if (!sourceLine.test(line)) continue
+    const links = linksFromCredit(line)
+    if (!links.length) continue
+    if (!group.links.length) groups.push(group)
+    group.links.push(...links)
+  }
+
+  return groups
+}
+
 export function readingMarkdown(source) {
   return source.split(/\r?\n/).filter(line =>
     !sourceLine.test(line) && !/^\s*\*?(?:本日报由|最后更新[：:]|更新时间[：:])/.test(line)
-  ).join('\n').replace(/^(###\s+)本次新增\s*·\s*/gm, '$1')
+  ).join('\n')
+    .replace(/^(###\s+)本次新增\s*·\s*/gm, '$1')
+    .replace(/([^\s])[^\S\r\n]*(\*\*判断\*\*)/g, '$1\n\n$2')
+    .replace(/^\*\*判断\*\*[：:]?[^\S\r\n]*/gm, '**判断**：')
 }

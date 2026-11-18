@@ -32,3 +32,8 @@
 .reading-copy ul, .reading-copy ol { padding-inline-start: 1.5em; }
 .reading-copy ul { list-style: disc; }
 .reading-copy ol { list-style: decimal; }
+.reading-references { padding-bottom: 36px; }
+.reading-references details { border-top: 1px solid var(--vp-c-divider); padding-top: 12px; }
+.reading-references summary { cursor: pointer; font-size: 14px; font-weight: 700; }
+.reading-references details > ul > li { margin-top: 12px; }
+.reading-references li ul { padding-inline-start: 16px; }
