@@ -1,19 +1,18 @@
 import DefaultTheme from 'vitepress/theme'
+import { useData } from 'vitepress'
 import { h } from 'vue'
-import PostList from './PostList.vue'
-import PostTitle from './PostTitle.vue'
-import HomeActions from './HomeActions.vue'
+import Portal from './Portal.vue'
+import Reading from './Reading.vue'
+import Story from './Story.vue'
 import './style.css'
+import './portal.css'
+
+const layouts = { portal: Portal, reading: Reading, story: Story }
 
 export default {
   extends: DefaultTheme,
   Layout() {
-    return h(DefaultTheme.Layout, null, {
-      'doc-before': () => h(PostTitle),
-    })
-  },
-  enhanceApp({ app }) {
-    app.component('PostList', PostList)
-    app.component('HomeActions', HomeActions)
+    const { frontmatter } = useData()
+    return h(layouts[frontmatter.value.layout] || DefaultTheme.Layout)
   },
 }

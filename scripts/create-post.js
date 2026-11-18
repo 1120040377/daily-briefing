@@ -40,36 +40,17 @@ function buildFrontmatter({ date, title, weather, summary }) {
   ].join('\n')
 }
 
-function buildTemplate(date) {
-  return `# ${date} 日报
+function buildTemplate() {
+  return `## 今日最值得知道
 
-> ⛅ 天气信息待更新
+<!-- 用一段新闻稿导语交代当天发生的主要事件。 -->
 
----
-
-## 🤖 AI 资讯
-
-<!-- 在此填写今日 AI 相关新闻 -->
-
----
-
-## 🖥️ 前端资讯
-
-<!-- 在此填写今日前端相关新闻 -->
-
----
-
-## 🌤️ 天气预报
-
-| 城市 | 今日 | 明日 | 后日 |
-|------|------|------|------|
-| 北京 | - | - | - |
-| 上海 | - | - | - |
-| 广州 | - | - | - |
-
----
-
-*本日报由自动化脚本生成 · ${date} 07:00 更新*
+<!-- 每条报道使用以下格式，复制后填入内容。
+### 新闻标题
+分类标记放在标题下一行，写成 HTML 注释 news: models。
+正文写事实与条件，随后用加粗的“判断”引出编辑判断。
+来源机构 · 发布日期 · [原文](https://example.com/)
+-->
 `
 }
 
@@ -119,10 +100,10 @@ async function main() {
     body = await readStdin()
     if (!body.trim()) {
       console.warn('警告：stdin 内容为空，使用默认模板')
-      body = buildTemplate(date)
+      body = buildTemplate()
     }
   } else {
-    body = buildTemplate(date)
+    body = buildTemplate()
   }
 
   // 如果 body 已包含 frontmatter，直接写入；否则自动补充
@@ -134,7 +115,7 @@ async function main() {
       date,
       title: `${date} 日报`,
       weather: '⛅ 待更新',
-      summary: '今日 AI 资讯、前端资讯与天气预报',
+      summary: '',
     })
     content = frontmatter + body
   }

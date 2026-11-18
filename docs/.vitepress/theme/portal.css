@@ -1,0 +1,34 @@
+.portal-wrap { width: min(100%, 760px); margin-inline: auto; padding-inline: 20px; }
+.portal-header { position: sticky; top: 0; z-index: 10; background: var(--vp-c-bg); border-bottom: 1px solid var(--vp-c-divider); }
+.portal-bar { min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.portal-brand { font-size: 23px; font-weight: 850; letter-spacing: -.04em; }
+.portal-accent, .issue-row time, .portal-tabs [aria-selected="true"] { color: #ad2134; }
+.dark :is(.portal-accent, .issue-row time, .portal-tabs [aria-selected="true"]) { color: #ff9da7; }
+.portal-bar .portal-accent { font-size: 14px; font-weight: 700; white-space: nowrap; }
+.portal-tabs { display: flex; gap: 23px; overflow-x: auto; scrollbar-width: none; }
+.portal-tabs button { flex: none; white-space: nowrap; padding: 10px 0; border-bottom: 3px solid transparent; color: var(--vp-c-text-2); }
+.portal-tabs [aria-selected="true"] { border-color: currentColor; font-weight: 750; }
+.portal-main { padding-block: 14px 48px; }
+.issue-row { display: grid; grid-template-columns: 58px minmax(0, 1fr) 16px; gap: 12px; padding-block: 16px; border-bottom: 1px solid var(--vp-c-divider); }
+.issue-row time { font-size: 13px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.issue-copy strong { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; font-size: 16px; line-height: 1.5; }
+.issue-copy small, .portal-muted { color: var(--vp-c-text-2); font-size: 13px; }
+.issue-copy small { display: block; margin-top: 3px; }
+.issue-row:hover strong, .story-link:hover h2, .portal-accent:hover { text-decoration: underline; }
+.portal-news { border-bottom: 1px solid var(--vp-c-divider); padding-block: 16px; scroll-margin-top: 120px; }
+.portal-news h2 { font-size: 18px; line-height: 1.45; font-weight: 750; }
+.story-link { display: block; }
+.portal-news p { margin-block: 5px; }
+.portal-judgment { padding: 8px 10px; background: var(--vp-c-bg-soft); }
+.portal-judgment strong { margin-inline-end: 4px; }
+.portal-reading { padding-block: 32px 52px; line-height: 1.8; }
+.portal-reading h1 { margin: 8px 0 18px; font-size: clamp(29px, 6vw, 46px); line-height: 1.25; font-weight: 800; }
+.portal-reading h2 { margin-top: 24px; font-size: 23px; font-weight: 750; }
+.portal-reading h3 { margin-top: 20px; font-size: 19px; font-weight: 750; }
+.portal-reading p, .story-sources { margin-block: 10px; }
+.reading-copy table { width: 100%; border-collapse: collapse; }
+.reading-copy :is(td, th) { border: 1px solid var(--vp-c-divider); padding: 4px 8px; }
+.reading-copy .header-anchor { display: none; }
+.reading-copy ul, .reading-copy ol { padding-inline-start: 1.5em; }
+.reading-copy ul { list-style: disc; }
+.reading-copy ol { list-style: decimal; }
