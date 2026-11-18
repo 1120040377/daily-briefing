@@ -32,8 +32,6 @@
 .reading-copy ul, .reading-copy ol { padding-inline-start: 1.5em; }
 .reading-copy ul { list-style: disc; }
 .reading-copy ol { list-style: decimal; }
-.reading-references { padding-bottom: 36px; }
-.reading-references details { border-top: 1px solid var(--vp-c-divider); padding-top: 12px; }
-.reading-references summary { cursor: pointer; font-size: 14px; font-weight: 700; }
-.reading-references details > ul > li { margin-top: 12px; }
-.reading-references li ul { padding-inline-start: 16px; }
+.reading-source { margin-block: 8px 20px; color: var(--vp-c-text-2); font-size: 13px; overflow-wrap: anywhere; }
+.reading-source a { color: #ad2134; text-decoration: underline; text-underline-offset: 2px; }
+.dark .reading-source a { color: #ff9da7; }
